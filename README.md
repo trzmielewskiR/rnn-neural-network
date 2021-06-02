@@ -41,25 +41,13 @@ To see the first 5 test items run:
 The `expected.tsv` file for the `test-A` test set is hidden and is not
 available in the master branch.
 
-Format of the output files
---------------------------
-
-For each input line, a probability for each label must be given:
-
-    label1:prob1 label2:prob2 ... labelN:probN
-
-(The separator is space, *not* TAB here.)
-
-You are expected to suply `dev-0/out.tsv` and `test-A/out.tsv` in this
-format (the file has `.tsv` extension for consistency, but actually
-there should be no TAB there).
 
 Evaluation metrics
 ------------------
 
 One evaluation metric is used:
 
-* BIO-F1, F1 metric on NER tags
+* BIO-F1 
 
 Directory structure
 -------------------
