@@ -1,68 +1,37 @@
-CoNLL-2003 English Named Entity Recognition.
-======================================================
+# Named Entity Recognition — RNN on CONLL-2003
 
-NER challenge for CoNLL-2003 English.
-Annotations were taken from [University of Antwerp](https://www.clips.uantwerpen.be/conll2003/ner/).
-The English data is a collection of news wire articles from the [Reuters Corpus](https://trec.nist.gov/data/reuters/reuters.html), RCV1.
+This project performs Named Entity Recognition (NER) using a recurrent neural network (RNN) trained on data in the IOB format (CONLL-2003 style).
 
-Format of the train set
------------------------
+## Task
 
-The train set has just two columns separated by TABs:
+Given a sentence, predict for each word its entity label:
 
-* the expected BIO labels,
-* the docuemnt.
+- `B-XXX` — beginning of an entity (e.g. `B-LOC`)  
+- `I-XXX` — inside an entity (e.g. `I-ORG`)  
+- `O` — outside of any entity  
 
-Each line is a separate training item. Note that this is TSV format,
-not CSV, double quotes are not interpreted in a special way!
+## Project Structure
 
-Preprocessing snippet located [here](https://git.applica.pl/snippets/18)
+- `train/` — training data (`train.tsv`)  
+- `dev-0/` — validation input (`in.tsv`) and labels (`expected.tsv`)  
+- `test-A/` — test input
+- `rnn.ipynb` — main notebook for training and evaluating the model  
+- `requirements.txt` — list of required Python packages  
+- `.gitignore` — ignored files and folders (e.g. models, cache, virtualenvs)  
+- `README.md` — project description and usage instructions  
 
-End-of-lines inside documents were replaced with the '</S>' tag.
+## Getting Started
 
-The train is compressed with the xz compressor, in order to see a
-random sample of 10 training items, run:
+### 1. Set up the environment
 
-    xzcat train/train.tsv.xz | shuf -n 10 | less -S
+It's recommended to use a virtual environment:
 
-(The `-S` disables line wrapping, press "q" to exit `less` browser.)
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
 
-Format of the test sets
------------------------
+### 2. Run the model
 
-For the test sets, the input data is given in two files: the text in
-`in.tsv` and the expected labels in `expected.tsv`. (The files have
-`.tsv` extensions for consistency but actually they do not contain TABs.)
-
-To see the first 5 test items run:
-
-    cat dev-0/in.tsv | paste dev-0/expected.tsv - | head -n 5
-
-The `expected.tsv` file for the `test-A` test set is hidden and is not
-available in the master branch.
-
-
-Evaluation metrics
-------------------
-
-One evaluation metric is used:
-
-* BIO-F1 
-
-Directory structure
--------------------
-
-* `README.md` — this file
-* `config.txt` — GEval configuration file
-* `train/` — directory with training data
-* `train/train.tsv.xz` — train set
-* `dev-0/` — directory with dev (test) data (split preserved from CoNLL-2003)
-* `dev-0/in.tsv` — input data for the dev set
-* `dev-0/expected.tsv` — expected (reference) data for the dev set
-* `test-A` — directory with test data
-* `test-A/in.tsv` — input data for the test set
-* `test-A/expected.tsv` — expected (reference) data for the test set (hidden from the developers,
-   not available in the `master` branch)
-
-Usually, there is no reason to change these files.
-
+Open and run `rnn.ipynb` to train and evaluate the model.
