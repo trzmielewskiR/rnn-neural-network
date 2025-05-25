@@ -1,0 +1,9 @@
+numpy
+pandas
+gensim
+scikit-learn
+ipykernel
+jupyter
+tensorflow
+nltk
+torch
